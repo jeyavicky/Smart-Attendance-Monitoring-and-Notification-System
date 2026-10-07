@@ -265,4 +265,4 @@ The modular MERN architecture is architected to seamlessly integrate with advanc
 ## 10. License
 
 This project is licensed under the ISC License.
->>>>>>> a0c8fd4 (Smart Attendance System prototype is developed successfully)
+
