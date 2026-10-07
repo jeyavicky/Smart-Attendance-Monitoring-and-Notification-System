@@ -8,27 +8,13 @@ let server = null;
 
 const startServer = async () => {
   try {
-    // Connect Database
+    // Connect to real MongoDB — will throw and exit if unavailable
     await connectDB();
 
-    // In development mode, ensure default test accounts and academic master data are seeded
-    if (process.env.NODE_ENV !== 'production') {
-      try {
-        const {
-          seedUsers,
-          seedAcademicMasterData,
-          seedFacultyMappingsAndTimetable,
-          seedAttendanceSessionsAndNotifications,
-        } = require('./src/scripts/seed');
-        await seedUsers(true);
-        await seedAcademicMasterData(true);
-        await seedFacultyMappingsAndTimetable(true);
-        await seedAttendanceSessionsAndNotifications(true);
-        console.log('👥 [Auth, Academics & Attendance] Development seed data verified');
-      } catch (seedErr) {
-        console.warn('⚠️  [Seed] Auto-seeding encountered notice:', seedErr.message);
-      }
-    }
+    // NOTE: Automatic seeding on every startup has been disabled.
+    // Run "npm run seed" once manually to populate the database.
+    // Seeding is idempotent and safe to re-run, but skipping it here
+    // avoids unnecessary DB queries on every restart.
 
     server = app.listen(PORT, () => {
       console.log('====================================================');
